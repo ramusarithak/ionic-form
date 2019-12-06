@@ -1,12 +1,32 @@
-import { NgModule } from '@angular/core';
+import { NgModule, RenderComponentType } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { RegisterPage } from './home/register/register.page';
+import { welcomRoutingModule } from './home/welcome/welcome-routing.module';
+import { WelcomeModule } from './home/welcome/welcome.module';
+import { FinishModule } from './home/finish/finish.module';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'registerform', pathMatch: 'full' },
-  { path: 'registerform', loadChildren: () => import('./home/registerform/registerform.component').then( m => m.HomePageModule)},
+  
+  { path: 'register', redirectTo: 'registerform', pathMatch: 'full' },
 
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
+  {
+    path: 'register',
+    loadChildren: () => import('./home/register/register.module').then( m => m.RegisterPageModule)
+  },
+  
+  {
+    path: 'login',
+    loadChildren: () => import('./home/login/login.module').then( m => m.LoginPageModule)
+  }
+  
+  ,{
+    path:'welcome',
+    loadChildren:()=> import('./home/welcome/welcome.module').then( m => WelcomeModule)
+  },
+  {
+    path:'finish',
+    loadChildren:()=> import('./home/finish/finish.module').then(m => FinishModule)
+  }
 ];
 
 @NgModule({
@@ -15,4 +35,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule{}
